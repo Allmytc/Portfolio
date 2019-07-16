@@ -2,11 +2,14 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="/assets/semantic.css">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% include "home/include/_navbar.html.twig" %}
         {% block body %}{% endblock %}
+        <script src="/assets/semantic.js"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
