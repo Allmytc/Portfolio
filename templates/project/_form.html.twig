@@ -1,4 +1,9 @@
-{{ form_start(form) }}
+{{ form_start(form, {"attr": {"class": "ui form"}}) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="ui hidden divider"></div>
+    <div class="ui two column centered grid">
+        <div class="column centered aligned">
+            <button class="ui purple basic button">{{ button_label|default('Créer Projet') }}</button>
+        </div>
+    </div>
 {{ form_end(form) }}

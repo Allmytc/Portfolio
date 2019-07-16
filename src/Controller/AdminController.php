@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\ProjectRepository;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,10 +15,10 @@ class AdminController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/admin", name="admin")
      */
-    public function index(ProjectRepository $projectRepository)
+    public function index(UserRepository $userRepository)
     {
         return $this->render('admin/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
+            'user' => $userRepository->findOneBy([]),
         ]);
     }
 }

@@ -19,24 +19,26 @@
             </div>
             <div class="ui unstackable items">
 
-            {% for project in projects %}
+            {% for project in user.projects %}
                 <div class="item">
                     <div class="image">
-                        <img src="/images/wireframe/image.png">
+                        <img src="/{{ project.image }}">
                     </div>
                     <div class="content">
-                        <a class="header">Header</a>
+                        <a class="header">{{ project.name }}</a>
                         <div class="meta">
-                            <span>Description</span>
+                            <span>Descriptif</span>
                         </div>
                         <div class="description">
-                            <p></p>
+                            <p>{{ project.dateStart | date("d/m/Y") }} - {{ project.dateEnd | date("d/m/Y") }}</p>
+                            <p>{{ project.description | slice(0, 120) }}</p>
                         </div>
                         <div class="extra">
-                            Additional Details
+                            Technos
                         </div>
                     </div>
                 </div>
+                <div class="ui divider"></div>
                 {% endfor %}
             </div>
         </div>

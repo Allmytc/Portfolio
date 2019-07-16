@@ -1,0 +1,41 @@
+
+{% for project in user.projects %}
+    <div class="ui special cards">
+        <div class="card">
+            <div class="blurring dimmable image">
+                <div class="ui dimmer">
+                    <div class="content">
+                        <div class="center">
+                            <a class="ui inverted button">Voir plus</a>
+                        </div>
+                    </div>
+                </div>
+                <img src="/images/avatar/large/elliot.jpg">
+            </div>
+            <div class="content">
+                <a class="header">{{ project.name }}</a>
+                <div class="meta">
+                    <span class="date">{{ project.dateStart | date("d/m/Y") }} - {{ project.dateEnd | date("d/m/Y") }}</span>
+                </div>
+                <div class="description">
+                    {{ project.description | slice(0, 120) }} ...
+                </div>
+            </div>
+            <div class="extra content">
+                <a>
+                    <i class="git icon"></i>
+                    Technos
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+
+{% block javascripts %}
+    <script>
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
+    </script>
+{% endblock %}

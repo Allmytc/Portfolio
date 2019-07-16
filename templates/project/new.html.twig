@@ -3,9 +3,9 @@
 {% block title %}New Project{% endblock %}
 
 {% block body %}
-    <h1>Create new Project</h1>
+    <div class="ui container">
+        <h3>Rajouter un Projet</h3>
+        {{ include('project/_form.html.twig') }}
+    </div>
 
-    {{ include('project/_form.html.twig') }}
-
-    <a href="{{ path('project_index') }}">back to list</a>
 {% endblock %}
