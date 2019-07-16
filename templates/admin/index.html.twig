@@ -1,20 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Admin{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="ui container">
+        <div class="ui top attached tabular menu">
+            <a class="item active" data-tab="portfolio">Portfolio</a>
+            <a class="item" data-tab="cv">CV</a>
+            <a class="item" data-tab="infos">Informations Personnelles</a>
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="portfolio">
+            <div class="ui two column centered grid">
+                <div class="column centered aligned">
+                    <a href="{{ path("project_new") }}" class="ui purple basic button">
+                        Ajouter Projet
+                    </a>
+                </div>
+            </div>
+            <div class="ui unstackable items">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            {% for project in projects %}
+                <div class="item">
+                    <div class="image">
+                        <img src="/images/wireframe/image.png">
+                    </div>
+                    <div class="content">
+                        <a class="header">Header</a>
+                        <div class="meta">
+                            <span>Description</span>
+                        </div>
+                        <div class="description">
+                            <p></p>
+                        </div>
+                        <div class="extra">
+                            Additional Details
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="cv">
+            Second
+        </div>
+        <div class="ui bottom attached tab segment active" data-tab="infos">
+            Third
+        </div>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/wilder/WCS/Checkpoint/Portfolio/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/wilder/WCS/Checkpoint/Portfolio/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('.menu .item')
+            .tab()
+        ;
+    </script>
 {% endblock %}
