@@ -1,0 +1,9 @@
+{{ form_start(form, {"attr": {"class": "ui form"}}) }}
+    {{ form_widget(form) }}
+    <div class="ui hidden divider"></div>
+    <div class="ui two column centered grid">
+        <div class="column centered aligned">
+            <button class="ui purple basic button">{{ button_label|default('Créer Dîplome') }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

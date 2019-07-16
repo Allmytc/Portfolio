@@ -22,6 +22,11 @@ class Technos
     private $logo;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="technos")
      */
     private $user;
@@ -29,6 +34,22 @@ class Technos
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
     }
 
     public function getLogo(): ?string

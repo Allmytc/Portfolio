@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Diploma index{% endblock %}
+
+{% block body %}
+    <h1>Diploma index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Logo</th>
+                <th>School</th>
+                <th>DateStart</th>
+                <th>DateEnd</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for diploma in diplomas %}
+            <tr>
+                <td>{{ diploma.id }}</td>
+                <td>{{ diploma.name }}</td>
+                <td>{{ diploma.logo }}</td>
+                <td>{{ diploma.school }}</td>
+                <td>{{ diploma.dateStart ? diploma.dateStart|date('Y-m-d') : '' }}</td>
+                <td>{{ diploma.dateEnd ? diploma.dateEnd|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('diploma_show', {'id': diploma.id}) }}">show</a>
+                    <a href="{{ path('diploma_edit', {'id': diploma.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('diploma_new') }}">Create new</a>
+{% endblock %}

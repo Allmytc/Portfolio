@@ -9,7 +9,7 @@
             <a class="item" data-tab="cv">CV</a>
             <a class="item" data-tab="infos">Informations Personnelles</a>
         </div>
-        <div class="ui bottom attached tab segment" data-tab="portfolio">
+        <div class="ui bottom attached tab segment active" data-tab="portfolio">
             <div class="ui two column centered grid">
                 <div class="column centered aligned">
                     <a href="{{ path("project_new") }}" class="ui purple basic button">
@@ -18,35 +18,182 @@
                 </div>
             </div>
             <div class="ui unstackable items">
-
-            {% for project in user.projects %}
-                <div class="item">
-                    <div class="image">
-                        <img src="/{{ project.image }}">
+                {% for project in user.projects %}
+                    <div class="item">
+                        <div class="image">
+                            <img src="/{{ project.image }}">
+                        </div>
+                        <div class="content">
+                            <a class="header">{{ project.name }}</a>
+                            <div class="meta">
+                                <p>{{ project.dateStart | date("d/m/Y") }} - {{ project.dateEnd | date("d/m/Y") }}</p>
+                            </div>
+                            <div class="description">
+                                <p>{{ project.description | slice(0, 120) }}</p>
+                            </div>
+                            <div class="extra">
+                                Technos
+                                <div></div>
+                                <div class="ui grid">
+                                    <div class="four column row">
+                                        <div class="left floated column">
+                                            <a href="{{ path("project_edit", {"id": project.id}) }}" class="ui green button">Editer</a>
+                                        </div>
+                                        <div class="right floated column">
+                                            <form method="post" action="{{ path('project_delete', {'id': project.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer ce projet?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+                                                <button class="ui red button">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="content">
-                        <a class="header">{{ project.name }}</a>
-                        <div class="meta">
-                            <span>Descriptif</span>
-                        </div>
-                        <div class="description">
-                            <p>{{ project.dateStart | date("d/m/Y") }} - {{ project.dateEnd | date("d/m/Y") }}</p>
-                            <p>{{ project.description | slice(0, 120) }}</p>
-                        </div>
-                        <div class="extra">
-                            Technos
-                        </div>
-                    </div>
-                </div>
-                <div class="ui divider"></div>
+                    <div class="ui divider"></div>
                 {% endfor %}
             </div>
         </div>
         <div class="ui bottom attached tab segment" data-tab="cv">
-            Second
+            <div class="ui styled fluid accordion">
+                <!-- Accordéon Expérience -->
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Expériences
+                </div>
+                <div class="content">
+                    <div class="ui two column centered grid">
+                        <div class="column centered aligned">
+                            <a href="{{ path("experience_new") }}" class="ui purple basic button">
+                                Ajouter une Expérience
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ui unstackable items">
+                        {% for experience in user.experiences %}
+                            <div class="item">
+                                <div class="image">
+                                    <img src="{{ experience.logo }}">
+                                </div>
+                                <div class="content">
+                                    <a class="header">{{ experience.title }}</a>
+                                    <div class="meta">
+                                        <p>{{ experience.dateStart | date("d/m/Y") }} - {{ experience.dateEnd | date("d/m/Y") }}</p>
+                                    </div>
+                                    <div class="description">
+                                        <p>{{ experience.description | slice(0, 100) | raw }} ...</p>
+                                    </div>
+                                    <div class="extra">
+                                        Technos
+                                        <div class="ui grid">
+                                            <div class="four column row">
+                                                <div class="left floated column">
+                                                    <a href="{{ path("experience_edit", {"id": experience.id}) }}" class="ui green button">Editer</a>
+                                                </div>
+                                                <div class="right floated column">
+                                                    <form method="post" action="{{ path('experience_delete', {'id': experience.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette expérience?');">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ experience.id) }}">
+                                                        <button class="ui red button">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui divider"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- Accordéon Technologies -->
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Technos
+                </div>
+                <div class="content">
+
+                </div>
+                <!-- Accordéon Diplomes -->
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Dîplomes
+                </div>
+                <div class="content">
+                    <div class="ui two column centered grid">
+                        <div class="column centered aligned">
+                            <a href="{{ path("diploma_new") }}" class="ui purple basic button">
+                                Ajouter un Diplome
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ui unstackable items">
+                        {% for diploma in user.diplomas %}
+                            <div class="item">
+                                <div class="image">
+                                    <img src="{{ diploma.logo }}">
+                                </div>
+                                <div class="content">
+                                    <a class="header">{{ diploma.name }}</a>
+                                    <div class="meta">
+                                        <p>{{ diploma.dateStart | date("d/m/Y") }} - {{ diploma.dateEnd | date("d/m/Y") }}</p>
+                                    </div>
+                                    <div class="description">
+                                        <p>{{ diploma.school }}</p>
+                                    </div>
+                                    <div class="extra">
+                                        <div class="ui grid">
+                                            <div class="four column row">
+                                                <div class="left floated column">
+                                                    <a href="{{ path("experience_edit", {"id": diploma.id}) }}" class="ui green button">Editer</a>
+                                                </div>
+                                                <div class="right floated column">
+                                                    <form method="post" action="{{ path('diploma_delete', {'id': diploma.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer ce diplome?');">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ diploma.id) }}">
+                                                        <button class="ui red button">Supprimer</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui divider"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- Accordéon Skills -->
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Skills
+                </div>
+                <div class="content">
+                    <p class="transition visible">Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
+                    <p class="transition visible">A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+                </div>
+                <!-- Accordéon Langues -->
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Langues
+                </div>
+                <div class="content">
+                    <p class="transition visible">Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
+                    <p class="transition visible">A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+                </div>
+                <!-- Accordéon Loisir -->
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Loisir
+                </div>
+                <div class="content">
+                    <p class="transition visible">Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
+                    <p class="transition visible">A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+                </div>
+            </div>
         </div>
-        <div class="ui bottom attached tab segment active" data-tab="infos">
-            Third
+        <div class="ui bottom attached tab segment" data-tab="infos">
         </div>
     </div>
 
@@ -56,6 +203,9 @@
     <script>
         $('.menu .item')
             .tab()
+        ;
+        $('.ui.accordion')
+            .accordion()
         ;
     </script>
 {% endblock %}
