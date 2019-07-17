@@ -3,11 +3,9 @@
 {% block title %}Edit Experience{% endblock %}
 
 {% block body %}
-    <h1>Edit Experience</h1>
+    <div class="ui container">
+        <h3>Editer {{ experience.name }}</h3>
+        {{ include('experience/_form.html.twig', {'button_label': 'Editer'}) }}
+    </div>
 
-    {{ include('experience/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('experience_index') }}">back to list</a>
-
-    {{ include('experience/_delete_form.html.twig') }}
 {% endblock %}

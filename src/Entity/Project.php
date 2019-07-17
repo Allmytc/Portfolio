@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,6 +52,16 @@ class Project
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projects")
      */
     private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Technos", inversedBy="projects")
+     */
+    private $technos;
+
+    public function __construct()
+    {
+        $this->technos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -136,6 +148,32 @@ class Project
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Technos[]
+     */
+    public function getTechnos(): Collection
+    {
+        return $this->technos;
+    }
+
+    public function addTechno(Technos $techno): self
+    {
+        if (!$this->technos->contains($techno)) {
+            $this->technos[] = $techno;
+        }
+
+        return $this;
+    }
+
+    public function removeTechno(Technos $techno): self
+    {
+        if ($this->technos->contains($techno)) {
+            $this->technos->removeElement($techno);
+        }
 
         return $this;
     }

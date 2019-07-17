@@ -38,7 +38,7 @@ class Language
 
     public function getName(): ?string
     {
-        return $this->name;
+        return strtolower($this->name);
     }
 
     public function setName(string $name): self

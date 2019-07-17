@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Project;
+use App\Entity\Technos;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -24,6 +26,15 @@ class ProjectType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('image', FileType::class)
+            ->add('technos', EntityType::class, [
+                // looks for choices from this entity
+                'class' => Technos::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                "attr" => [
+                    "class" => "ui dropdown"
+                ],
+            ])
         ;
     }
 
