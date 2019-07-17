@@ -22,9 +22,9 @@ class Loisir
     private $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
-    private $description;
+    private $logo;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="loisirs")
@@ -50,12 +50,12 @@ class Loisir
 
     public function getDescription(): ?string
     {
-        return $this->description;
+        return $this->logo;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(string $logo): self
     {
-        $this->description = $description;
+        $this->logo = $logo;
 
         return $this;
     }

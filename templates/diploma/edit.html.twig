@@ -3,11 +3,9 @@
 {% block title %}Edit Diploma{% endblock %}
 
 {% block body %}
-    <h1>Edit Diploma</h1>
+    <div class="ui container">
+        <h3>Editer Diplome</h3>
 
-    {{ include('diploma/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('diploma_index') }}">back to list</a>
-
-    {{ include('diploma/_delete_form.html.twig') }}
+        {{ include('diploma/_form.html.twig', {'button_label': 'Editer'}) }}
+    </div>
 {% endblock %}

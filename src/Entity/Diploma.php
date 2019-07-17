@@ -46,6 +46,11 @@ class Diploma
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=80)
+     */
+    private $niveau;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +124,18 @@ class Diploma
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?string
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(string $niveau): self
+    {
+        $this->niveau = $niveau;
 
         return $this;
     }

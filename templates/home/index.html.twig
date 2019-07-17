@@ -50,4 +50,53 @@
     </div>
 
     {% include "home/include/_footer.html.twig" %}
+
+    {% for project in user.projects %}
+        <div id="modal{{ project.id }}" class="ui modal">
+            <i class="close icon"></i>
+            <div class="header">
+                {{ project.name }}
+            </div>
+            <div class="image content">
+                <div class="ui huge image">
+                    <img src="/assets/images/project_images/{{ project.image }}">
+                </div>
+                <div class="description">
+                    <p>{{ project.description | raw }}</p>
+                    <div class="ui grid">
+                        {% for techno in project.technos %}
+                            <div class="two wide column">
+                                <img class="ui mini image" src="{{ techno.logo }}" alt="">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <a href="{{ project.githubLink }}">
+                    <div class="ui right labeled icon button">
+                        <i class="github icon"></i>
+                        Accèder au github
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}
+
+{%  block javascripts %}
+    {% for project in user.projects %}
+    <script>
+        $('#launchModal{{ project.id }}').on("click",
+            function showModal() {
+            $('#modal{{ project.id }}')
+            .modal('show')
+        ;
+        });
+    </script>
+    {% endfor %}
+
+
 {% endblock %}

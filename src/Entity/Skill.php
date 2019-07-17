@@ -22,11 +22,6 @@ class Skill
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $level;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="skills")
      */
     private $user;
@@ -44,18 +39,6 @@ class Skill
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getLevel(): ?int
-    {
-        return $this->level;
-    }
-
-    public function setLevel(int $level): self
-    {
-        $this->level = $level;
 
         return $this;
     }

@@ -14,6 +14,7 @@ class DiplomaType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('niveau')
             ->add('logo')
             ->add('school')
             ->add('dateStart', DateType::class, [

@@ -37,7 +37,7 @@ class TechnoController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="loisir_delete", methods={"DELETE"})
+     * @Route("/{id}", name="techno_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Technos $techno): Response
     {

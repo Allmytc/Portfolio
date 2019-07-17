@@ -23,9 +23,7 @@ class SkillController extends AbstractController
         $skill = new Skill();
 
         $skill->setUser($this->getUser());
-        $skill
-            ->setName($request->request->get("skillName"))
-            ->setLevel($request->request->get("skillLevel"));
+        $skill->setName($request->request->get("skillName"));
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($skill);
         $entityManager->flush();

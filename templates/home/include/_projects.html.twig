@@ -5,11 +5,11 @@
             <div class="ui dimmer">
                 <div class="content">
                     <div class="center">
-                        <a class="ui inverted purple button">Voir plus</a>
+                        <div id="launchModal{{ project.id }}" class="ui inverted purple button">Voir plus</div>
                     </div>
                 </div>
             </div>
-            <img src="/public/assets/images/project_images/{{ project.image }}">
+            <img src="/assets/images/project_images/{{ project.image }}">
         </div>
         <div class="content">
             <a class="header">{{ project.name }}</a>
@@ -17,11 +17,11 @@
                 <span class="date">{{ project.dateStart | date("d/m/Y") }} - {{ project.dateEnd | date("d/m/Y") }}</span>
             </div>
             <div class="description">
-                {{ project.description | slice(0, 120) }} ...
+                {{ project.description | slice(0, 120) | raw }} ...
             </div>
         </div>
         <div class="extra content">
-            <div class="">
+            <div>
                 {% for techno in project.technos %}
                     <img class="ui mini image" src="{{ techno.logo }}">
                 {% endfor %}

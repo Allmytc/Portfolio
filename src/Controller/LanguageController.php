@@ -23,7 +23,7 @@ class LanguageController extends AbstractController
 
         $language->setUser($this->getUser());
         $language
-            ->setName($request->request->get("flag"))
+            ->setName($request->request->get("languageName"))
             ->setLevel($request->request->get("languageLevel"));
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($language);
