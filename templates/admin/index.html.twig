@@ -121,9 +121,16 @@
                             <button class="ui purple basic button">Ajouter Techno</button>
                         </div>
                     </form>
-                    <div>
+                    <div class="ui list">
                         {% for techno in user.technos %}
-                            <div>
+                            <div class="item">
+                                <form method="post" action="{{ path('experience_delete', {'id': techno.id}) }}" onsubmit="return confirm('Voulez-vous supprimer cette Techno');">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ techno.id) }}">
+                                    <button class="ui icon button">
+                                        <i class="close icon"></i>
+                                    </button>
+                                </form>
                                 <img class="ui avatar tiny image" src="{{ techno.logo }}"> {{ techno.name }}
                             </div>
                         {% endfor %}
@@ -184,8 +191,28 @@
                     Skills
                 </div>
                 <div class="content">
-                    <p class="transition visible">Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
-                    <p class="transition visible">A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+                    <form class="ui form" id="skillNew">
+                        <div class="inline fields">
+                            <label>Ajouter un skill</label>
+                            <div class="field">
+                                <input id="skillName" type="text" placeholder="Name">
+                            </div>
+                            <div class="field">
+                                <input id="skillLevel" type="number" placeholder="limit 100">
+                            </div>
+                            <button class="ui purple basic button">Ajouter Skill</button>
+                        </div>
+                    </form>
+                    <div>
+                        {% for skill in user.skills %}
+                            <div class="ui violet progress" data-percent="{{ skill.level }}">
+                                <div class="bar">
+                                    <div class="progress">{{ skill.level }}</div>
+                                </div>
+                                <div class="label">{{ skill.name }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
                 <!-- Accordéon Langues -->
                 <div class="title">
@@ -475,8 +502,33 @@
                     Loisir
                 </div>
                 <div class="content">
-                    <p class="transition visible">Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
-                    <p class="transition visible">A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+                    <div class="ui two column centered grid">
+                        <div class="column centered aligned">
+                            <a href="{{ path("loisir_new") }}" class="ui purple basic button">
+                                Ajouter un loisir
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ui relaxed divided list">
+                        {% for loisir in user.loisirs %}
+                            <div class="item">
+                                <div class="content">
+                                    <div class="header">{{ loisir.name }}</div>
+                                    <div class="description">{{ loisir.description | slice(0, 85) }} ...</div>
+                                    <div class="ui grid">
+                                        <div class="four column row">
+                                            <div class="left floated column">
+                                                <a href="{{ path("loisir_edit", {"id": loisir.id}) }}" class="ui green button">Editer</a>
+                                            </div>
+                                            <div class="right floated column">
+                                                {{ include('loisir/_delete_form.html.twig') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -496,11 +548,11 @@
         ;
         $('#languageNew').on("submit",
         function languageNew(event) {
-            let flagEl = $('#flag').val();
-            let languageLevel = $('#languageLevel').val();
+            let skillNameEl = $('#skillName').val();
+            let skillLevelEl = $('#languageLevel').val();
             var fd = new FormData();
-            fd.append('flag', flagEl);
-            fd.append('languageLevel', languageLevel);
+            fd.append('skillName', languageLevelEl);
+            fd.append('languageLevel', skillLevelEl);
 
             $.ajax({
                 url: '{{ path("language_new") }}',
@@ -509,7 +561,8 @@
                 contentType: false,
                 type: 'POST',
             });
-        })
+        });
+
         $('#technoNew').on("submit",
             function technoNew(event) {
                 event.preventDefault();
@@ -521,6 +574,24 @@
 
                 $.ajax({
                     url: '{{ path("techno_new") }}',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                });
+            });
+
+        $('#skillNew').on("submit",
+            function skillNew(event) {
+                event.preventDefault();
+                let skillNameEl = $('#skillName').val();
+                let skillLevelEl = $('#skillLevel').val();
+                var fd = new FormData();
+                fd.append('skillName', skillNameEl);
+                fd.append('skillLevel', skillLevelEl);
+
+                $.ajax({
+                    url: '{{ path("skill_new") }}',
                     data: fd,
                     processData: false,
                     contentType: false,

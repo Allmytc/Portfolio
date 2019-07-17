@@ -7,6 +7,7 @@ use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,12 +38,36 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form['image']->getData();
+
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $image->move(
+                        $this->getParameter('projectImages_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $project->setImage($newFilename);
+            }
             $project->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('admin');
         }
 
         return $this->render('project/new.html.twig', [
@@ -72,7 +97,7 @@ class ProjectController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('admin');
         }
 
         return $this->render('project/edit.html.twig', [
@@ -92,6 +117,6 @@ class ProjectController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('project_index');
+        return $this->redirectToRoute('admin');
     }
 }

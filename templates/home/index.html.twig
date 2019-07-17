@@ -17,14 +17,37 @@
             </div>
         </div>
         <div class="ui hidden divider"></div>
-        <div class="ui container ui special four cards">
+        <div class="ui container ui special tree cards">
             {% include "home/include/_projects.html.twig" %}
+            <div class="ui hidden divider"></div>
         </div>
-        <div class="ui hidden divider"></div>
+        <div class="ui divider"></div>
     </div>
 
     <div>
+        <div class="ui two column centered grid">
+            <div class="column centered aligned">
+                <h2>Mon CV</h2>
+            </div>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="ui two column centered grid">
+            <div class="four column centered row">
+                <div class="column">
+                    <div class="column centered aligned row">
+                        <a class="big ui purple basic button" href="">Télécharger le CV</a>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="column centered aligned">
+                        <a class="big ui purple button" href="{{ path("cv") }}">Accèder au CV</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="ui hidden divider"></div>
     </div>
 
+    {% include "home/include/_footer.html.twig" %}
 {% endblock %}

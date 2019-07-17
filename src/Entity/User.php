@@ -119,6 +119,16 @@ class User implements UserInterface
      */
     private $loisirs;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $githubAccount;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $linkedinAccount;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -535,6 +545,30 @@ class User implements UserInterface
                 $loisir->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGithubAccount(): ?string
+    {
+        return $this->githubAccount;
+    }
+
+    public function setGithubAccount(string $githubAccount): self
+    {
+        $this->githubAccount = $githubAccount;
+
+        return $this;
+    }
+
+    public function getLinkedinAccount(): ?string
+    {
+        return $this->linkedinAccount;
+    }
+
+    public function setLinkedinAccount(string $linkedinAccount): self
+    {
+        $this->linkedinAccount = $linkedinAccount;
 
         return $this;
     }

@@ -35,6 +35,8 @@ class AppFixtures extends Fixture
                 je recherche une première expérience pour développer et mettre en action mes compétences.")
             ->setRoles(["ROLE_ADMIN"])
             ->setPassword($this->cypher->encodePassword($user, 'JeSuisLePatron'))
+            ->setGithubAccount("https://github.com/Allmytc")
+            ->setLinkedinAccount("https://www.linkedin.com/in/quentin-bisiaux-30365a85/")
         ;
         $manager->persist($user);
         $manager->flush();

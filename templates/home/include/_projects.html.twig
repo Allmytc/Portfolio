@@ -5,11 +5,11 @@
             <div class="ui dimmer">
                 <div class="content">
                     <div class="center">
-                        <a class="ui inverted button">Voir plus</a>
+                        <a class="ui inverted purple button">Voir plus</a>
                     </div>
                 </div>
             </div>
-            <img src="{{ project.image }}">
+            <img src="/public/assets/images/project_images/{{ project.image }}">
         </div>
         <div class="content">
             <a class="header">{{ project.name }}</a>
@@ -21,19 +21,11 @@
             </div>
         </div>
         <div class="extra content">
-            <div class="author">
+            <div class="">
                 {% for techno in project.technos %}
-                    <img class="ui avatar small image" src="{{ techno.logo }}">
+                    <img class="ui mini image" src="{{ techno.logo }}">
                 {% endfor %}
             </div>
         </div>
     </div>
 {% endfor %}
-
-{% block javascripts %}
-    <script>
-        $('.special.cards .image').dimmer({
-            on: 'hover'
-        });
-    </script>
-{% endblock %}

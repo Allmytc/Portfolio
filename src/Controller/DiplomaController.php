@@ -40,7 +40,7 @@ class DiplomaController extends AbstractController
             $entityManager->persist($diploma);
             $entityManager->flush();
 
-            return $this->redirectToRoute('diploma_index');
+            return $this->redirectToRoute('admin');
         }
 
         return $this->render('diploma/new.html.twig', [
@@ -70,7 +70,7 @@ class DiplomaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('diploma_index');
+            return $this->redirectToRoute('admin');
         }
 
         return $this->render('diploma/edit.html.twig', [
@@ -90,6 +90,6 @@ class DiplomaController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('diploma_index');
+        return $this->redirectToRoute('admin');
     }
 }

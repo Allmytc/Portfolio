@@ -9,15 +9,17 @@
             {{ user.description }}
         </p>
         <div class="ui grid">
-            <div class="four column row">
-                <div class="column"><i class="map marker icon"></i> {{ user.city }}, {{ user.country }}</div>
-                <div class="column"><i class="at icon"></i> {{ user.email }}</div>
-                <div class="column"><i class="birthday cake icon"></i></div>
-            </div>
+            <div class="five wide column"><i class="map marker icon"></i>{{ user.city }}, {{ user.country }}</div>
+            <div class="seven wide column"><i class="at icon"></i>{{ user.email }}</div>
+            <div class="four wide column"><i class="birthday cake icon"></i>27 ans</div>
         </div>
     </div>
     <div class="two wide column middle aligned">
-        <i class="github big icon"></i>
-        <i class="linkedin big icon"></i>
+        <a href="{{ user.githubAccount }}">
+            <i class="github big icon"></i>
+        </a>
+        <a href="{{ user.linkedinAccount }}">
+            <i class="linkedin big icon"></i>
+        </a>
     </div>
 </div>
